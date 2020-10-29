@@ -55,6 +55,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('notes.index') }}">{{ __('Dashboard') }}</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -73,6 +74,35 @@
         </nav>
 
         <main class="py-4">
+            <div class="containder-fluid">
+                @if (Session::has('flash_message'))
+                    <div class="container">
+                        <div class="alert alert-success">
+                            <em>{!! session('flash_message') !!}</em>
+                        </div>
+                    </div>
+                @endif
+
+                @if (Session::has('warning'))
+                    <div class="container">
+                        <div class="alert alert-warning warning">
+                            <em>{!! session('warning') !!}</em>
+                        </div>
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="container">
+                        <div class="alert alert-danger error row">
+                            <ul>
+                            @foreach ($errors->all() as $e)
+                                <li>{{ $e }}</li>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+            </div>
+
             @yield('content')
         </main>
     </div>

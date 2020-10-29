@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -42,8 +43,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Mutator - Universally hash passwords whereever they are set
+     * 
+     * @param string
+     */
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = Hash::needsRehash($password) ? Hash::make($password) : $password;
+    }
+
+    /**
+     * A user can have many notes
+     * 
+     * @return App\Notes
+     */
+    public function notes(): HasMany
+    {
+        return $this->hasMany('App\Note');
     }
 }
