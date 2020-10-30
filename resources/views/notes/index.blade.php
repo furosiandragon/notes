@@ -32,7 +32,7 @@
                     <table class="table table-borderless table-secondary mb-0">
                         <tbody>
                             @foreach ($notes as $note)
-                                <tr>
+                                <tr class="border border-dark">
                                     <td colspan="2" class="align-middle font-weight-bold">
                                         {{ $note->title }} (created by {{ $note->user->name }} on {{ $note->created_at->format('l, M d, Y, h:ia') }})
                                         <a href="{{ route('notes.edit', $note->id) }}" class="btn btn-sm btn-info ml-2">Edit</a>
@@ -41,7 +41,7 @@
                                         {!! Form::close() !!}
                                     </td>
                                 </tr>
-                                <tr class="border-bottom border-dark">
+                                <tr class="border-bottom border-left border-right border-dark">
                                     <td width="5%">&nbsp;</td>
                                     <td class="align-middle">{{ $note->body }}</td>
                                 </tr>
